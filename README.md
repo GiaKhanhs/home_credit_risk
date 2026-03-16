@@ -33,6 +33,7 @@ home_credit_risk/
 
 # Create Environment
 `python --version` --> 3.8.17
+
 `python -m venv .venv`
 ## Activate env
 `source .venv/bin/activate`
