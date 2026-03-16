@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: raw
+    description: Raw Home Credit dataset ingested from CSV files
+    database: home_credit
+    schema: raw
+
+    tables:
+
+      - name: application_train
+        description: Main training dataset containing loan applications with target variable
+
+      - name: application_test
+        description: Test dataset for loan applications without target
+
+      - name: bureau
+        description: Credit history from other financial institutions reported to the credit bureau
+
+      - name: bureau_balance
+        description: Monthly balance status of bureau credits
+
+      - name: previous_application
+        description: Previous loan applications of clients at Home Credit
+
+      - name: installments_payments
+        description: Repayment history for previously disbursed credits
+
+      - name: credit_card_balance
+        description: Monthly balance of credit card accounts
+
+      - name: pos_cash_balance
+        description: Monthly balance snapshots of POS and cash loans
