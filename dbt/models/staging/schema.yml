@@ -165,3 +165,29 @@ models:
 
       - name: amt_annuity
         description: Annuity amount of the credit account in the bureau record.
+
+
+  - name: stg_bureau_balance
+    description: Monthly snapshot of each bureau loan record.
+
+    columns:
+      - name: sk_id_bureau
+        description: Bureau loan ID used to join with the bureau table
+
+        tests:
+          - relationships:
+              to: ref('stg_bureau')
+              field: sk_id_bureau
+
+
+      - name: months_balance
+        description: Relative month index with respect to the application date (−1 = most recent month), representing a monthly time axis.
+
+      - name: status
+        description: Status of the bureau loan in that specific month.
+
+  - name: stg_previous_application
+    description: 
+
+    columns:
+      - name: 
