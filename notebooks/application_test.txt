@@ -1,0 +1,122 @@
+                      column  non null ratio  unique  numneric_ratio  datetime_ratio                                                                                        sample_values
+                  sk_id_curr            1.00   48744            1.00             0.1                                                               100001, 100005, 100013, 100028, 100038
+          name_contract_type            1.00       2            0.00             0.0                                                                          Cash loans, Revolving loans
+                 code_gender            1.00       2            0.00             0.0                                                                                                 F, M
+                flag_own_car            1.00       2            0.00             0.0                                                                                                 N, Y
+             flag_own_realty            1.00       2            0.00             0.0                                                                                                 Y, N
+                cnt_children            1.00      11            1.00             0.0                                                                                        0, 2, 1, 3, 8
+            amt_income_total            1.00     606            1.00             0.0                                                      135000.0, 99000.0, 202500.0, 315000.0, 180000.0
+                  amt_credit            1.00    2937            1.00             0.0                                                    568800.0, 222768.0, 663264.0, 1575000.0, 625500.0
+                 amt_annuity            1.00    7491            1.00             0.0                                                          20560.5, 17370.0, 69777.0, 49018.5, 32067.0
+             amt_goods_price            1.00     677            1.00             0.0                                                    450000.0, 180000.0, 630000.0, 1575000.0, 625500.0
+             name_type_suite            0.98       7            0.00             0.0                                     Unaccompanied, Family, Spouse, partner, Group of people, Other_B
+            name_income_type            1.00       7            0.00             0.0                                 Working, State servant, Pensioner, Commercial associate, Businessman
+         name_education_type            1.00       5            0.00             0.0 Higher education, Secondary / secondary special, Incomplete higher, Lower secondary, Academic degree
+          name_family_status            1.00       5            0.00             0.0                                      Married, Single / not married, Civil marriage, Widow, Separated
+           name_housing_type            1.00       6            0.00             0.0             House / apartment, With parents, Rented apartment, Municipal apartment, Office apartment
+  region_population_relative            1.00      81            1.00             0.0                              0.01885, 0.035792000000000004, 0.019101, 0.026392000000000002, 0.010032
+                  days_birth            1.00   15477            1.00             0.0                                                               -19241, -18064, -20038, -13976, -13040
+               days_employed            1.00    7863            1.00             0.0                                                                    -2329, -4469, -4458, -1866, -2191
+           days_registration            1.00   12618            1.00             0.0                                                          -5170.0, -9118.0, -2175.0, -2000.0, -4000.0
+             days_id_publish            1.00    5880            1.00             0.0                                                                     -812, -1623, -3503, -4208, -4262
+                 own_car_age            0.34      52            0.34             0.0                                                                           5.0, 16.0, 10.0, 3.0, 14.0
+                  flag_mobil            1.00       2            1.00             0.0                                                                                                 1, 0
+              flag_emp_phone            1.00       2            1.00             0.0                                                                                                 1, 0
+             flag_work_phone            1.00       2            1.00             0.0                                                                                                 0, 1
+            flag_cont_mobile            1.00       2            1.00             0.0                                                                                                 1, 0
+                  flag_phone            1.00       2            1.00             0.0                                                                                                 0, 1
+                  flag_email            1.00       2            1.00             0.0                                                                                                 1, 0
+             occupation_type            0.68      18            0.00             0.0                          Low-skill Laborers, Drivers, Sales staff, High skill tech staff, Core staff
+             cnt_fam_members            1.00      12            1.00             0.0                                                                              2.0, 4.0, 3.0, 1.0, 5.0
+        region_rating_client            1.00       3            1.00             0.0                                                                                              2, 1, 3
+ region_rating_client_w_city            1.00       4            1.00             0.0                                                                                          2, 1, 3, -1
+  weekday_appr_process_start            1.00       7            0.00             0.0                                                         TUESDAY, FRIDAY, MONDAY, WEDNESDAY, THURSDAY
+     hour_appr_process_start            1.00      24            1.00             0.0                                                                                     18, 9, 14, 11, 5
+  reg_region_not_live_region            1.00       2            1.00             0.0                                                                                                 0, 1
+  reg_region_not_work_region            1.00       2            1.00             0.0                                                                                                 0, 1
+ live_region_not_work_region            1.00       2            1.00             0.0                                                                                                 0, 1
+      reg_city_not_live_city            1.00       2            1.00             0.0                                                                                                 0, 1
+      reg_city_not_work_city            1.00       2            1.00             0.0                                                                                                 0, 1
+     live_city_not_work_city            1.00       2            1.00             0.0                                                                                                 0, 1
+           organization_type            1.00      58            0.00             0.0                   Kindergarten, Self-employed, Transport: type 3, Business Entity Type 3, Government
+                ext_source_1            0.58   27207            0.58             0.0  0.7526144906031748, 0.5649902017969249, 0.5257339776824489, 0.20214499206799905, 0.7608510178380521
+                ext_source_2            1.00   38885            1.00             0.0  0.7896543511176771, 0.2916555320093651, 0.6997868302051784, 0.5096770801723647, 0.42568729409122297
+                ext_source_3            0.82     702            0.82             0.0  0.1595195404777181, 0.4329616670974407, 0.6109913280868294, 0.6127042441012546, 0.39277386060313396
+              apartments_avg            0.51    1543            0.51             0.0                                                                0.066, 0.3052, 0.2412, 0.1031, 0.0216
+            basementarea_avg            0.43    2816            0.43             0.0                                                                0.059, 0.1974, 0.0084, 0.1115, 0.0545
+ years_beginexpluatation_avg            0.53     175            0.53             0.0                                                                0.9732, 0.997, 0.9821, 0.9781, 0.9513
+             years_build_avg            0.35     130            0.35             0.0                                                               0.9592, 0.7552, 0.3336, 0.8368, 0.6736
+              commonarea_avg            0.31    2042            0.31             0.0                                                                  0.1165, 0.0452, 0.0132, 0.0, 0.0573
+               elevators_avg            0.48     181            0.48             0.0                                                                          0.32, 0.16, 0.0, 0.12, 0.04
+               entrances_avg            0.52     200            0.52             0.0                                                               0.1379, 0.2759, 0.2069, 0.1034, 0.1724
+               floorsmax_avg            0.52     252            0.52             0.0                                                                 0.125, 0.375, 0.3333, 0.1667, 0.0417
+               floorsmin_avg            0.33     198            0.33             0.0                                                                0.0417, 0.375, 0.1667, 0.4167, 0.2083
+                landarea_avg            0.42    2540            0.42             0.0                                                                   0.2042, 0.1683, 0.0095, 0.032, 0.0
+        livingapartments_avg            0.33    1211            0.33             0.0                                                               0.2404, 0.1942, 0.0286, 0.0891, 0.0672
+              livingarea_avg            0.52    3848            0.52             0.0                                                               0.0505, 0.3673, 0.2218, 0.0113, 0.0613
+     nonlivingapartments_avg            0.32     241            0.32             0.0                                                                  0.0386, 0.0116, 0.0077, 0.0, 0.0193
+           nonlivingarea_avg            0.46    2026            0.46             0.0                                                                    0.08, 0.0731, 0.0007, 0.0282, 0.0
+             apartments_mode            0.51     636            0.51             0.0                                                                0.0672, 0.3109, 0.2458, 0.105, 0.0221
+           basementarea_mode            0.43    2835            0.43             0.0                                                               0.0612, 0.2049, 0.0088, 0.1157, 0.0566
+years_beginexpluatation_mode            0.53     160            0.53             0.0                                                                0.9732, 0.997, 0.9821, 0.9782, 0.9513
+            years_build_mode            0.35     132            0.35             0.0                                                               0.9608, 0.7648, 0.3597, 0.8432, 0.6864
+             commonarea_mode            0.31    2001            0.31             0.0                                                                  0.1176, 0.0457, 0.0134, 0.0, 0.0579
+              elevators_mode            0.48      26            0.48             0.0                                                                  0.3222, 0.1611, 0.0, 0.1208, 0.0403
+              entrances_mode            0.52      30            0.52             0.0                                                               0.1379, 0.2759, 0.2069, 0.1034, 0.1724
+              floorsmax_mode            0.52      25            0.52             0.0                                                                 0.125, 0.375, 0.3333, 0.1667, 0.0417
+              floorsmin_mode            0.33      25            0.33             0.0                                                                0.0417, 0.375, 0.1667, 0.4167, 0.2083
+               landarea_mode            0.42    2560            0.42             0.0                                                                  0.2089, 0.1721, 0.0097, 0.0327, 0.0
+       livingapartments_mode            0.33     602            0.33             0.0                                                               0.2626, 0.2121, 0.0312, 0.0973, 0.0735
+             livingarea_mode            0.52    3842            0.52             0.0                                                               0.0526, 0.3827, 0.2311, 0.0117, 0.0639
+    nonlivingapartments_mode            0.32     106            0.32             0.0                                                                  0.0389, 0.0117, 0.0078, 0.0, 0.0195
+          nonlivingarea_mode            0.46    2025            0.46             0.0                                                                  0.0847, 0.0774, 0.0008, 0.0299, 0.0
+             apartments_medi            0.51     918            0.51             0.0                                                               0.0666, 0.3081, 0.2436, 0.1041, 0.0219
+           basementarea_medi            0.43    2805            0.43             0.0                                                                0.059, 0.1974, 0.0084, 0.1115, 0.0545
+years_beginexpluatation_medi            0.53     169            0.53             0.0                                                                0.9732, 0.997, 0.9821, 0.9781, 0.9513
+            years_build_medi            0.35     129            0.35             0.0                                       0.9597, 0.7585, 0.3425, 0.8390000000000001, 0.6779999999999999
+             commonarea_medi            0.31    2034            0.31             0.0                                                                  0.1173, 0.0455, 0.0133, 0.0, 0.0577
+              elevators_medi            0.48      43            0.48             0.0                                                                          0.32, 0.16, 0.0, 0.12, 0.04
+              entrances_medi            0.52      43            0.52             0.0                                                               0.1379, 0.2759, 0.2069, 0.1034, 0.1724
+              floorsmax_medi            0.52      47            0.52             0.0                                                                 0.125, 0.375, 0.3333, 0.1667, 0.0417
+              floorsmin_medi            0.33      44            0.33             0.0                                                                0.0417, 0.375, 0.1667, 0.4167, 0.2083
+               landarea_medi            0.42    2562            0.42             0.0                                                                  0.2078, 0.1712, 0.0096, 0.0326, 0.0
+       livingapartments_medi            0.33     843            0.33             0.0                                                               0.2446, 0.1975, 0.0291, 0.0906, 0.0684
+             livingarea_medi            0.52    3885            0.52             0.0                                                               0.0514, 0.3739, 0.2258, 0.0115, 0.0624
+    nonlivingapartments_medi            0.32     134            0.32             0.0                                                                  0.0388, 0.0116, 0.0078, 0.0, 0.0194
+          nonlivingarea_medi            0.46    2030            0.46             0.0                                                                  0.0817, 0.0746, 0.0007, 0.0288, 0.0
+          fondkapremont_mode            0.33       4            0.00             0.0                             reg oper account, not specified, org spec account, reg oper spec account
+              housetype_mode            0.52       3            0.00             0.0                                                     block of flats, specific housing, terraced house
+              totalarea_mode            0.54    3820            0.54             0.0                                                                 0.0392, 0.37, 0.2151, 0.0702, 0.0136
+          wallsmaterial_mode            0.51       7            0.00             0.0                                                            Stone, brick, Panel, Block, Wooden, Mixed
+         emergencystate_mode            0.54       2            0.00             0.0                                                                                              No, Yes
+    obs_30_cnt_social_circle            1.00      28            1.00             0.0                                                                              0.0, 1.0, 4.0, 5.0, 2.0
+    def_30_cnt_social_circle            1.00       8            1.00             0.0                                                                              0.0, 1.0, 2.0, 3.0, 4.0
+    obs_60_cnt_social_circle            1.00      27            1.00             0.0                                                                              0.0, 1.0, 4.0, 5.0, 2.0
+    def_60_cnt_social_circle            1.00       7            1.00             0.0                                                                              0.0, 1.0, 3.0, 2.0, 4.0
+      days_last_phone_change            1.00    3579            1.00             0.0                                                                -1740.0, 0.0, -856.0, -1805.0, -821.0
+             flag_document_2            1.00       1            1.00             0.0                                                                                                    0
+             flag_document_3            1.00       2            1.00             0.0                                                                                                 1, 0
+             flag_document_4            1.00       2            1.00             0.0                                                                                                 0, 1
+             flag_document_5            1.00       2            1.00             0.0                                                                                                 0, 1
+             flag_document_6            1.00       2            1.00             0.0                                                                                                 0, 1
+             flag_document_7            1.00       2            1.00             0.0                                                                                                 0, 1
+             flag_document_8            1.00       2            1.00             0.0                                                                                                 0, 1
+             flag_document_9            1.00       2            1.00             0.0                                                                                                 0, 1
+            flag_document_10            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_11            1.00       2            1.00             0.0                                                                                                 0, 1
+            flag_document_12            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_13            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_14            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_15            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_16            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_17            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_18            1.00       2            1.00             0.0                                                                                                 0, 1
+            flag_document_19            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_20            1.00       1            1.00             0.0                                                                                                    0
+            flag_document_21            1.00       1            1.00             0.0                                                                                                    0
+  amt_req_credit_bureau_hour            0.88       3            0.88             0.0                                                                                        0.0, 1.0, 2.0
+   amt_req_credit_bureau_day            0.88       3            0.88             0.0                                                                                        0.0, 1.0, 2.0
+  amt_req_credit_bureau_week            0.88       3            0.88             0.0                                                                                        0.0, 1.0, 2.0
+   amt_req_credit_bureau_mon            0.88       7            0.88             0.0                                                                              0.0, 1.0, 3.0, 2.0, 6.0
+   amt_req_credit_bureau_qrt            0.88       8            0.88             0.0                                                                              0.0, 1.0, 3.0, 2.0, 4.0
+  amt_req_credit_bureau_year            0.88      16            0.88             0.0                                                                              0.0, 3.0, 4.0, 2.0, 1.0
