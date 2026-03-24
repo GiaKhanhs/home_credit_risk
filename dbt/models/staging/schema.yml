@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: stg_application_train
-    description: Cleaned staging table for Home Credit application training dataset
+    description: Cleaned staging table for Home Credit application training table
 
     columns:
 
@@ -56,7 +56,7 @@ models:
         description: Housing type of the client
 
   - name: stg_application_test
-    description: Cleaned staging table for Home Credit application testing dataset
+    description: Cleaned staging table for Home Credit application testing table
 
     columns:
 
@@ -65,13 +65,6 @@ models:
         tests:
           - not_null
           - unique
-
-      - name: target
-        description: Target variable (1 = client had payment difficulties)
-        tests:
-          - not_null
-          - accepted_values:
-              values: [0, 1]
 
       - name: amt_income_total
         description: Total income of the client
@@ -108,3 +101,67 @@ models:
 
       - name: name_housing_type
         description: Housing type of the client
+
+  - name: stg_bureau
+    description: Cleaned staging table for Home Credit bureau table
+
+    columns:
+      - name: sk_id_curr
+        description: Current ID applicant to join to application tables.
+
+        tests:
+          - relationships:
+              to: ref('stg_application_train')
+              field: sk_id_curr
+
+      - name: sk_id_burr
+        description: ID of credit in bureau, join to bureau_balance.
+
+        tests:
+          - not_null
+          - unique
+      
+      - name: credit_active
+        description: "Active status: Closed, Active, Sold, Bad debt"
+
+      - name: credit_currency
+        description: credit currency of credit
+
+      - name: days_credit
+        description: Number of days before the current application date when the credit account was opened (negative values indicate days in the past), representing the age of the credit history.
+
+      - name: credit_day_overdue
+        description: Number of days the bureau credit is currently past due, serving as a direct indicator of credit risk.
+
+      - name: days_credit_enddate
+        description: Number of days relative to the current date until the credit is expected to end (can be negative or positive).
+
+      - name: days_enddate_fact
+        description: Actual number of days relative to the current application date when the credit account was closed.
+
+      - name: amt_credit_max_overdue
+        description: Maximum overdue amount ever recorded for the bureau credit, indicating the severity of past delinquency.
+
+      - name: cnt_credit_prolong
+        description: Number of times the credit account has been prolonged, where frequent extensions may indicate potential risk.
+
+      - name: amt_credit_sum
+        description: Current credit amount of the bureau account.
+
+      - name: amt_credit_sum_debt
+        description: Current outstanding debt of the bureau credit account.
+
+      - name: amt_credit_sum_limit
+        description: Current credit limit of the account, mainly applicable to credit cards.
+
+      - name: amt_credit_sum_overdue
+        description: Current overdue amount of the credit account.
+
+      - name: credit_type
+        description: "Credit type: Consumer credit, Credit card, Mortgage,..."
+
+      - name: days_credit_update
+        description: Number of days relative to the current application date since the last update of the bureau credit record.
+
+      - name: amt_annuity
+        description: Annuity amount of the credit account in the bureau record.
