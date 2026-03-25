@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: int_application_train
-    description: Cleaned staging table for Home Credit application training table
+    description: Cleaned intermediate table for Home Credit application training table
 
     columns:
 
@@ -102,7 +102,7 @@ models:
       - name: name_housing_type
         description: Housing type of the client
 
-  - name: int_bureau
+  - name: int_bureau_by_curr
     description: Cleaned staging table for Home Credit bureau table
 
     columns:
@@ -117,6 +117,7 @@ models:
 
         tests:
           - not_null
+          - unique
       
       - name: credit_active
         description: "Active status: Closed, Active, Sold, Bad debt"
@@ -166,7 +167,7 @@ models:
         description: Annuity amount of the credit account in the bureau record.
 
 
-  - name: int_bureau_balance
+  - name: int_bureau_balance_by_bureau
     description: Monthly snapshot of each bureau loan record.
 
     columns:
@@ -175,6 +176,9 @@ models:
 
         tests:
           - not_null
+          - relationships:
+              to: ref('int_bureau_by_curr')
+              field: sk_id_bureau
 
 
       - name: months_balance
