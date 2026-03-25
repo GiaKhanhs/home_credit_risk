@@ -1,0 +1,487 @@
+version: 2
+
+models:
+  - name: int_application_train
+    description: Cleaned staging table for Home Credit application training table
+
+    columns:
+
+      - name: sk_id_curr
+        description: Unique client identifier
+        tests:
+          - not_null
+          - unique
+
+      - name: target
+        description: Target variable (1 = client had payment difficulties)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: amt_income_total
+        description: Total income of the client
+
+      - name: amt_credit
+        description: Credit amount of the loan
+
+      - name: amt_annuity
+        description: Loan annuity amount
+
+      - name: amt_goods_price
+        description: Price of goods for which the loan was given
+
+      - name: name_contract_type
+        description: Type of loan contract
+
+      - name: code_gender
+        description: Gender of the client
+
+      - name: flag_own_car
+        description: Whether the client owns a car
+
+      - name: flag_own_realty
+        description: Whether the client owns real estate
+
+      - name: name_income_type
+        description: Type of income source
+
+      - name: name_education_type
+        description: Education level of the client
+
+      - name: name_family_status
+        description: Family status of the client
+
+      - name: name_housing_type
+        description: Housing type of the client
+
+  - name: int_application_test
+    description: Cleaned staging table for Home Credit application testing table
+
+    columns:
+
+      - name: sk_id_curr
+        description: Unique client identifier
+        tests:
+          - not_null
+          - unique
+
+      - name: amt_income_total
+        description: Total income of the client
+
+      - name: amt_credit
+        description: Credit amount of the loan
+
+      - name: amt_annuity
+        description: Loan annuity amount
+
+      - name: amt_goods_price
+        description: Price of goods for which the loan was given
+
+      - name: name_contract_type
+        description: Type of loan contract
+
+      - name: code_gender
+        description: Gender of the client
+
+      - name: flag_own_car
+        description: Whether the client owns a car
+
+      - name: flag_own_realty
+        description: Whether the client owns real estate
+
+      - name: name_income_type
+        description: Type of income source
+
+      - name: name_education_type
+        description: Education level of the client
+
+      - name: name_family_status
+        description: Family status of the client
+
+      - name: name_housing_type
+        description: Housing type of the client
+
+  - name: int_bureau
+    description: Cleaned staging table for Home Credit bureau table
+
+    columns:
+      - name: sk_id_curr
+        description: Current ID applicant to join to application tables.
+
+        tests:
+          - not_null
+
+      - name: sk_id_bureau
+        description: ID of credit in bureau, join to bureau_balance.
+
+        tests:
+          - not_null
+      
+      - name: credit_active
+        description: "Active status: Closed, Active, Sold, Bad debt"
+
+      - name: credit_currency
+        description: credit currency of credit
+
+      - name: days_credit
+        description: >
+          Number of days before the current application date when the credit account was opened 
+          (negative values indicate days in the past), representing the age of the credit history.
+
+      - name: credit_day_overdue
+        description: Number of days the bureau credit is currently past due, serving as a direct indicator of credit risk.
+
+      - name: days_credit_enddate
+        description: Number of days relative to the current date until the credit is expected to end (can be negative or positive).
+
+      - name: days_enddate_fact
+        description: Actual number of days relative to the current application date when the credit account was closed.
+
+      - name: amt_credit_max_overdue
+        description: Maximum overdue amount ever recorded for the bureau credit, indicating the severity of past delinquency.
+
+      - name: cnt_credit_prolong
+        description: Number of times the credit account has been prolonged, where frequent extensions may indicate potential risk.
+
+      - name: amt_credit_sum
+        description: Current credit amount of the bureau account.
+
+      - name: amt_credit_sum_debt
+        description: Current outstanding debt of the bureau credit account.
+
+      - name: amt_credit_sum_limit
+        description: Current credit limit of the account, mainly applicable to credit cards.
+
+      - name: amt_credit_sum_overdue
+        description: Current overdue amount of the credit account.
+
+      - name: credit_type
+        description: "Credit type: Consumer credit, Credit card, Mortgage,..."
+
+      - name: days_credit_update
+        description: Number of days relative to the current application date since the last update of the bureau credit record.
+
+      - name: amt_annuity
+        description: Annuity amount of the credit account in the bureau record.
+
+
+  - name: int_bureau_balance
+    description: Monthly snapshot of each bureau loan record.
+
+    columns:
+      - name: sk_id_bureau
+        description: Bureau loan ID used to join with the bureau table
+
+        tests:
+          - not_null
+
+
+      - name: months_balance
+        description: > 
+          Relative month index with respect to the application date (−1 = most recent month), 
+          representing a monthly time axis.
+
+      - name: status
+        description: Status of the bureau loan in that specific month.
+
+
+  - name: int_previous_application
+    description: > 
+      Contains all previous Home Credit loan applications for each client, including application details, 
+      approval outcomes, contract terms, and behavioral history used for credit risk modeling.
+
+    columns:
+      - name: sk_id_prev
+        description: Unique identifier of the previous loan application.
+
+        tests:
+          - not_null
+          - unique
+
+      - name: sk_id_curr
+        description: Unique identifier of the current applicant, used to join with application tables.
+
+        tests:
+          - not_null
+
+      - name: name_contract_type
+        description: Type of loan product in the previous application (e.g., cash loan, consumer loan).
+
+      - name: amt_annuity
+        description: Annuity amount of the previous loan.
+
+      - name: amt_application
+        description: Amount of credit originally requested by the client.
+
+      - name: amt_credit
+        description: Final approved credit amount, which may differ from the requested amount.
+
+      - name: amt_down_payment
+        description: Initial down payment amount for the loan.
+
+      - name: amt_goods_price
+        description: Price of the goods associated with the loan.
+
+      - name: weekday_appr_process_start
+        description: Day of the week when the previous application was submitted.
+
+      - name: hour_appr_process_start
+        description: Hour of the day when the previous application was submitted.
+
+      - name: flag_last_appl_per_contract
+        description: Flag indicating whether this is the last application for the given contract.
+
+      - name: nflag_last_appl_in_day
+        description: Flag indicating whether this is the last application made by the client on that day.
+
+      - name: rate_down_payment
+        description: Normalized ratio of the down payment relative to the loan.
+
+      - name: rate_interest_primary
+        description: Normalized primary interest rate of the loan.
+
+      - name: rate_interest_privileged
+        description: Normalized privileged (discounted) interest rate of the loan.
+
+      - name: name_cash_loan_purpose
+        description: Purpose of the cash loan as declared by the client.
+
+      - name: name_contract_status
+        description: Status of the previous application (e.g., approved, refused, canceled).
+
+      - name: days_decision
+        description: Relative number of days before the current application when the decision was made.
+
+      - name: name_payment_type
+        description: Type of payment method chosen for the loan.
+
+      - name: code_reject_reason
+        description: Reason for rejection if the application was not approved.
+
+      - name: name_type_suite
+        description: Type of accompanying person(s) during the application.
+
+      - name: name_client_type
+        description: Client type at the time of application (e.g., new or returning client).
+
+      - name: name_goods_category
+        description: Category of goods financed by the loan.
+
+      - name: name_portfolio
+        description: Portfolio category of the loan (e.g., cash, POS, car).
+
+      - name: name_product_type
+        description: Product type of the loan (e.g., walk-in, cross-sell).
+
+      - name: channel_type
+        description: Channel through which the client was acquired.
+
+      - name: sellerplace_area
+        description: Geographical area of the seller or point of sale.
+
+      - name: name_seller_industry
+        description: Industry of the seller providing the goods or service.
+
+      - name: cnt_payment
+        description: Number of installments planned for the loan.
+
+      - name: name_yield_group
+        description: Interest rate group classification (e.g., low, medium, high).
+
+      - name: product_combination
+        description: Detailed combination of product and payment structure.
+
+      - name: days_first_drawing
+        description: Relative day of the first disbursement of the loan.
+
+      - name: days_first_due
+        description: Relative day of the first payment due date.
+
+      - name: days_last_due_1st_version
+        description: Initial scheduled last due date of the loan.
+
+      - name: days_last_due
+        description: Final actual last due date of the loan.
+
+      - name: days_termination
+        description: Relative day when the loan is expected to be terminated.
+
+      - name: nflag_insured_on_approval
+        description: Flag indicating whether insurance was requested upon loan approval.
+
+
+  - name: int_pos_cash_balance
+    description: >
+      Monthly snapshots of previous POS and cash loans for each applicant.
+      Each row represents the state of a previous loan at a specific month (MONTHS_BALANCE).
+
+    columns:
+      - name: sk_id_prev
+        description: "ID of previous credit (loan)."
+        tests:
+          - not_null
+    
+      - name: sk_id_curr
+        description: "ID of current applicant."
+        tests:
+          - not_null
+
+      - name: months_balance
+        description: >
+          Relative month of the snapshot. 0 or -1 is the most recent,
+          more negative values indicate further in the past.
+
+      - name: cnt_instalment
+        description: >
+          Total number of installments of the previous loan.
+          This value may change over time.
+
+      - name: cnt_instalment_future
+        description: >
+          Number of remaining installments to be paid at that month.
+
+      - name: name_contract_status
+        description: >
+          Status of the contract at that month
+          (e.g., Active, Completed, Signed, Demand, etc.).
+
+      - name: sk_dpd
+        description: >
+          Days past due during that month.
+
+      - name: sk_dpd_def
+        description: >
+          Days past due with tolerance applied
+          (small delays may be ignored depending on business rules).
+
+  - name: int_installments_payments
+    description: >
+        Installment payment history for previous loans.
+        Each row represents one installment record of a previous application,
+        including scheduled payment date, actual payment date, scheduled amount,
+        and actual amount paid.
+
+    columns:
+      - name: sk_id_prev
+        description: "ID of previous loan application."
+        tests:
+          - not_null
+
+      - name: sk_id_curr
+        description: "ID of current applicant."
+        tests:
+          - not_null
+
+      - name: num_instalment_version
+        description: >
+          Version of the installment payment schedule.
+          A change in value indicates that the repayment schedule was adjusted.
+
+      - name: num_instalment_number
+        description: >
+          Installment sequence number within the previous loan.
+
+      - name: days_instalment
+        description: >
+          Scheduled day for the installment payment, expressed relatively
+          to the current application date.
+
+      - name: days_entry_payment
+        description: >
+          Actual day when the customer made the payment, expressed relatively
+          to the current application date.
+
+      - name: amt_instalment
+        description: >
+          Amount that was supposed to be paid for the installment.
+
+      - name: amt_payment
+        description: >
+          Amount that was actually paid by the customer.
+
+
+  - name: int_credit_card_balance
+    description: >
+      Monthly snapshots of previous credit card accounts.
+      Each row represents the state of a previous credit card account
+      at a given relative month.
+
+    columns:
+      - name: sk_id_prev
+        description: "ID of previous credit card account."
+        tests:
+          - not_null
+
+      - name: sk_id_curr
+        description: "ID of current applicant."
+        tests:
+          - not_null
+
+      - name: months_balance
+        description: >
+          Relative month of the snapshot. -1 is the most recent month,
+          and more negative values indicate older history.
+
+      - name: amt_balance
+        description: "Outstanding balance in that month."
+
+      - name: amt_credit_limit_actual
+        description: "Actual credit card limit in that month."
+
+      - name: amt_drawings_atm_current
+        description: "Amount withdrawn from ATM in that month."
+
+      - name: amt_drawings_current
+        description: "Total amount drawn in that month."
+
+      - name: amt_drawings_other_current
+        description: "Amount drawn through other channels in that month."
+
+      - name: amt_drawings_pos_current
+        description: "Amount used for purchases / POS transactions in that month."
+
+      - name: amt_inst_min_regularity
+        description: "Minimum payment amount due in that month."
+
+      - name: amt_payment_current
+        description: "Amount paid by the customer in that month."
+
+      - name: amt_payment_total_current
+        description: "Total payment made by the customer in that month."
+
+      - name: amt_receivable_principal
+        description: "Current receivable principal amount."
+
+      - name: amt_recivable
+        description: >
+          Current receivable amount as provided in the source data.
+          Column name kept aligned with source naming.
+
+      - name: amt_total_receivable
+        description: "Total receivable amount."
+
+      - name: cnt_drawings_atm_current
+        description: "Number of ATM withdrawals in that month."
+
+      - name: cnt_drawings_current
+        description: "Total number of drawing operations in that month."
+
+      - name: cnt_drawings_other_current
+        description: "Number of other drawing operations in that month."
+
+      - name: cnt_drawings_pos_current
+        description: "Number of POS / purchase drawing operations in that month."
+
+      - name: cnt_instalment_mature_cum
+        description: "Cumulative number of installments already paid."
+
+      - name: name_contract_status
+        description: "Status of the credit card contract in that month."
+
+      - name: sk_dpd
+        description: "Days past due in that month."
+
+      - name: sk_dpd_def
+        description: >
+          Days past due with tolerance applied.
