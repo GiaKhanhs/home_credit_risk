@@ -23,7 +23,7 @@ WITH bureau_balance__source AS (
             status
         FROM valid_bureau_balance
     )
-    
+     
     , derived AS (
         SELECT 
             sk_id_bureau,
