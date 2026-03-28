@@ -1,0 +1,103 @@
+version: 2
+
+models:
+  - name: mart_application_train
+    description: Cleaned intermediate table for Home Credit application training table
+
+    columns:
+
+      - name: sk_id_curr
+        description: Unique client identifier
+        tests:
+          - not_null
+          - unique
+
+      - name: target
+        description: Target variable (1 = client had payment difficulties)
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: amt_income_total
+        description: Total income of the client
+
+      - name: amt_credit
+        description: Credit amount of the loan
+
+      - name: amt_annuity
+        description: Loan annuity amount
+
+      - name: amt_goods_price
+        description: Price of goods for which the loan was given
+
+      - name: name_contract_type
+        description: Type of loan contract
+
+      - name: code_gender
+        description: Gender of the client
+
+      - name: flag_own_car
+        description: Whether the client owns a car
+
+      - name: flag_own_realty
+        description: Whether the client owns real estate
+
+      - name: name_income_type
+        description: Type of income source
+
+      - name: name_education_type
+        description: Education level of the client
+
+      - name: name_family_status
+        description: Family status of the client
+
+      - name: name_housing_type
+        description: Housing type of the client
+
+  - name: mart_application_test
+    description: Cleaned staging table for Home Credit application testing table
+
+    columns:
+
+      - name: sk_id_curr
+        description: Unique client identifier
+        tests:
+          - not_null
+          - unique
+
+      - name: amt_income_total
+        description: Total income of the client
+
+      - name: amt_credit
+        description: Credit amount of the loan
+
+      - name: amt_annuity
+        description: Loan annuity amount
+
+      - name: amt_goods_price
+        description: Price of goods for which the loan was given
+
+      - name: name_contract_type
+        description: Type of loan contract
+
+      - name: code_gender
+        description: Gender of the client
+
+      - name: flag_own_car
+        description: Whether the client owns a car
+
+      - name: flag_own_realty
+        description: Whether the client owns real estate
+
+      - name: name_income_type
+        description: Type of income source
+
+      - name: name_education_type
+        description: Education level of the client
+
+      - name: name_family_status
+        description: Family status of the client
+
+      - name: name_housing_type
+        description: Housing type of the client
