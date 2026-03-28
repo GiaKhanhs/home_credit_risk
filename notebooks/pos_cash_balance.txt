@@ -1,9 +1,0 @@
-               column  non null ratio  unique  numneric_ratio  datetime_ratio                                              sample_values
-           sk_id_prev             1.0  936325             1.0             0.0                1803195, 1715348, 1784872, 1903291, 2341044
-           sk_id_curr             1.0  337252             1.0             0.1                     182943, 367990, 397406, 269225, 334279
-       months_balance             1.0      96             1.0             0.0                                    -31, -33, -32, -35, -38
-       cnt_instalment             1.0      73             1.0             0.0                               48.0, 36.0, 12.0, 24.0, 60.0
-cnt_instalment_future             1.0      79             1.0             0.0                                45.0, 35.0, 9.0, 42.0, 12.0
- name_contract_status             1.0       9             0.0             0.0 Active, Completed, Signed, Approved, Returned to the store
-               sk_dpd             1.0    3400             1.0             0.0                                              0, 1, 2, 4, 3
-           sk_dpd_def             1.0    2307             1.0             0.0                                              0, 1, 2, 4, 3

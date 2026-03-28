@@ -1,4 +1,0 @@
-        column  non null ratio  unique  numneric_ratio  datetime_ratio                               sample_values
-  sk_id_bureau             1.0  817395            1.00             0.0 5715448, 5715449, 5715451, 5715452, 5715453
-months_balance             1.0      97            1.00             0.0                           0, -1, -2, -3, -4
-        status             1.0       8            0.29             0.0                               C, 0, X, 1, 2
