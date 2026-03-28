@@ -190,7 +190,8 @@ models:
         description: Status of the bureau loan in that specific month.
 
 
-  - name: int_previous_application
+
+  - name: int_previous_application_by_curr
     description: > 
       Contains all previous Home Credit loan applications for each client, including application details, 
       approval outcomes, contract terms, and behavioral history used for credit risk modeling.
@@ -315,7 +316,7 @@ models:
         description: Flag indicating whether insurance was requested upon loan approval.
 
 
-  - name: int_pos_cash_balance
+  - name: int_pos_cash_balance_by_prev
     description: >
       Monthly snapshots of previous POS and cash loans for each applicant.
       Each row represents the state of a previous loan at a specific month (MONTHS_BALANCE).
@@ -359,7 +360,7 @@ models:
           Days past due with tolerance applied
           (small delays may be ignored depending on business rules).
 
-  - name: int_installments_payments
+  - name: int_installments_payments_by_prev
     description: >
         Installment payment history for previous loans.
         Each row represents one installment record of a previous application,
@@ -405,7 +406,7 @@ models:
           Amount that was actually paid by the customer.
 
 
-  - name: int_credit_card_balance
+  - name: int_credit_card_balance_by_prev
     description: >
       Monthly snapshots of previous credit card accounts.
       Each row represents the state of a previous credit card account
