@@ -84,13 +84,15 @@ WITH bureau_balance__source AS (
             MAX(dpd_severity) AS bureau_balance_max_dpd_severity,
 
             CASE
-                WHEN SUM(flag_has_dpd) > 0 THEN 1
-                ELSE 0
+                WHEN SUM(flag_has_dpd) > 0 
+                    THEN 1
+                    ELSE 0
             END AS flag_bureau_balance_has_dpd_history,
 
             CASE
-                WHEN SUM(flag_status_closed) = COUNT(*) THEN 1
-                ELSE 0
+                WHEN SUM(flag_status_closed) = COUNT(*) 
+                    THEN 1
+                    ELSE 0
             END AS flag_bureau_balance_all_closed
 
         FROM derived
