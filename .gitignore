@@ -1,5 +1,9 @@
 # data
-data/
+data/*
+
+# BUT keep DVC files
+!data/**/*.dvc
+!data/**/.gitkeep
 
 # env
 env/
