@@ -144,6 +144,7 @@ final AS (
         previous.previous_cc_max_dpd_def_max,
         COALESCE(previous.previous_total_cc_dpd_month_count, 0) AS previous_total_cc_dpd_month_count,
         COALESCE(previous.previous_total_cc_dpd_def_month_count, 0) AS previous_total_cc_dpd_def_month_count,
+        COALESCE(previous.previous_total_cc_demand_month_count, 0) AS previous_total_cc_demand_month_count,
 
         COALESCE(previous.flag_has_previous_refused_application, 0) AS flag_has_previous_refused_application,
         COALESCE(previous.flag_has_previous_canceled_application, 0) AS flag_has_previous_canceled_application,

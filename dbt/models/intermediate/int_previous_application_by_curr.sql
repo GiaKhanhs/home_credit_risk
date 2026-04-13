@@ -263,6 +263,7 @@ joined_by_prev AS (
         cc.cc_max_dpd_def                               AS prev_cc_max_dpd_def,
         cc.cc_dpd_month_count                           AS prev_cc_dpd_month_count,
         cc.cc_dpd_def_month_count                       AS prev_cc_dpd_def_month_count,
+        cc.cc_status_demand_count                       AS prev_cc_demand_count,
         cc.flag_cc_has_dpd_history                      AS flag_prev_cc_has_dpd_history,
         cc.flag_cc_has_dpd_def_history                  AS flag_prev_cc_has_dpd_def_history,
         cc.flag_cc_ever_demand                          AS flag_prev_cc_ever_demand
@@ -359,6 +360,7 @@ aggregate AS (
         MAX(prev_cc_max_dpd_def) AS previous_cc_max_dpd_def_max,
         SUM(COALESCE(prev_cc_dpd_month_count, 0)) AS previous_total_cc_dpd_month_count,
         SUM(COALESCE(prev_cc_dpd_def_month_count, 0)) AS previous_total_cc_dpd_def_month_count,
+        SUM(prev_cc_demand_count) AS previous_total_cc_demand_month_count,
 
         CASE
             WHEN SUM(flag_status_refused) > 0 THEN 1
