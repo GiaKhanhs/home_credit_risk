@@ -1,7 +1,10 @@
-# data
-data/*
+# ignore all files in data
+data/**
 
-# BUT keep DVC files
+# BUT keep folders (not files inside)
+!data/**/
+
+# keep DVC files only
 !data/**/*.dvc
 !data/**/.gitkeep
 
