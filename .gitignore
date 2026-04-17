@@ -29,3 +29,10 @@ logs/
 
 # .DS_Store
 .DS_Store
+
+# MLflow
+mlruns/
+
+# artifacts
+artifacts/
+logs/
