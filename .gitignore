@@ -34,5 +34,5 @@ logs/
 mlruns/
 
 # artifacts
-artifacts/
+artifact/
 logs/
