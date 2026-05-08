@@ -1,36 +1,5 @@
 # Structure of project
 
-```text
-home_credit_risk/
-│
-├── data/
-│   ├── raw/              # Original datasets (CSV files from Kaggle)
-│   └── processed/        # Cleaned and feature-engineered datasets
-│
-├── create_db/
-│   ├── schema.sql        # SQL script to create database tables
-│   ├── indexes.sql       # Index creation for query optimization
-│   └── import_data.py    # Python script to load CSV data into PostgreSQL
-│
-├── sql/
-│   ├── bureau_agg.sql    # Aggregations for bureau table
-│   ├── previous_agg.sql  # Aggregations for previous applications
-│   └── final_dataset.sql # SQL pipeline to build the final modeling dataset
-│
-├── src/
-│   ├── export_dataset.py # Export final dataset from database to ML-ready format
-│   ├── train.py          # Machine learning model training script
-│   └── preprocess.py     # Data preprocessing and feature engineering
-│
-├── artifacts/            # Saved models, logs, and experiment outputs
-│
-├── app/                  # Optional application layer (API or inference service)
-│
-└── Dockerfile            # Container configuration for reproducible environment
-
-```
-
-
 # Create Environment
 `python --version` --> 3.8.17
 
