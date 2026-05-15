@@ -20,7 +20,7 @@ This project focuses on building a production-style workflow:
 | Language | Python 3.8.17 |
 | Database | PostgreSQL |
 | Transformation | dbt |
-| ML | Scikit-learn, XGBoost, LightGBM |
+| ML | Scikit-learn (Logistic Regression), XGBoost, LightGBM |
 | Experiment Tracking | MLflow |
 | Visualization | Matplotlib, Seaborn |
 | Environment | Virtual Environment (`venv`) |
@@ -236,18 +236,18 @@ Used to connect dbt to PostgreSQL.
 ```yaml
 models:
   home_credit_risk:
-
+    # Config indicated by + and applies to all files under models/example/
     staging:
       +materialized: view
-      +schema: staging
 
     intermediate:
       +materialized: view
       +schema: int
-
-    marts:
+    
+    mart:
       +materialized: table
       +schema: marts
+
 ```
 
 ---
@@ -432,7 +432,188 @@ Instead of using default threshold `0.5`, the project searches for the best thre
 - Precision
 
 ---
+# Model Selection Summary
 
+Three models were evaluated for the Home Credit default prediction task: Logistic Regression, XGBoost, and LightGBM.
+
+| Model | Accuracy | Precision | Recall | F1 Score | AUC |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.8503 | 0.2470 | 0.4363 | 0.3154 | 0.7605 |
+| XGBoost | 0.8516 | 0.2574 | 0.4532 | 0.3283 | 0.7705 |
+| LightGBM | 0.8516 | 0.2562 | 0.4405 | 0.3240 | 0.7710 |
+
+Although all three models achieved similar accuracy, accuracy is not the most important metric in this problem because the dataset is highly imbalanced. The main focus is identifying default customers, represented by class `1`.
+
+XGBoost achieved the best overall performance on the minority class. It produced the highest precision, recall, and F1 score among the three models. This means XGBoost was better at detecting default cases while maintaining a reasonable balance between false positives and false negatives.
+
+LightGBM achieved the highest AUC, which indicates strong ranking ability. However, its F1 score and recall were slightly lower than XGBoost. Logistic Regression performed well as a baseline model, but it was limited by its linear assumptions and showed weaker minority-class performance compared to the boosting models.
+
+Based on the evaluation results, XGBoost is selected as the final model for deployment. It provides the best trade-off between recall, precision, and F1 score, which is more suitable for credit default risk prediction than accuracy alone.
+
+---
+
+# Model Deployment
+
+The selected XGBoost model was deployed using FastAPI and MLflow to simulate a lightweight production inference service.
+
+Deployment pipeline:
+
+```text
+Raw User Input
+        ↓
+FastAPI REST API
+        ↓
+Input Validation (Pydantic)
+        ↓
+Preprocessing Pipeline
+(Encoding + Scaling)
+        ↓
+XGBoost Model
+        ↓
+Probability Prediction
+        ↓
+Threshold Decision
+        ↓
+JSON Response
+```
+
+---
+
+# Deployment Architecture
+
+```text
+Client / Browser
+        ↓
+FastAPI Server (:8000)
+        ↓
+Predictor Service
+        ↓
+MLflow Tracking Server (:5002)
+        ↓
+XGBoost Model Artifact
+```
+
+---
+
+# Deployment Structure
+
+```bash
+app/
+├── main.py
+├── predictor.py
+├── schemas.py
+```
+
+| File | Purpose |
+|---|---|
+| `main.py` | FastAPI application entry point |
+| `predictor.py` | Model loading, preprocessing, prediction |
+| `schemas.py` | Request & response validation |
+
+---
+
+# MLflow Model Serving
+
+The trained XGBoost model is loaded directly from MLflow artifacts:
+
+```python
+mlflow.xgboost.load_model(
+    MODEL_URI
+)
+```
+
+MLflow tracking server:
+
+```bash
+mlflow server \
+--host 127.0.0.1 \
+--port 5002
+```
+
+---
+
+# FastAPI Server
+
+Start API server:
+
+```bash
+uvicorn app.main:app \
+--host 0.0.0.0 \
+--port 8000 \
+--reload
+```
+
+Swagger UI:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# Preprocessing Artifacts
+
+The deployment pipeline reuses preprocessing artifacts generated during training:
+
+```text
+artifact/preprocessing/
+├── ohe.pkl
+├── scaler.pkl
+├── categorical_cols.pkl
+├── numerical_cols.pkl
+└── feature_columns.pkl
+```
+
+These artifacts ensure consistency between:
+
+- Training pipeline
+- Inference pipeline
+
+---
+
+# Prediction Flow
+
+The deployed API performs:
+
+1. Receive raw customer data
+2. Fill missing columns
+3. Apply OneHotEncoding
+4. Apply StandardScaler
+5. Align features with training schema
+6. Generate probability prediction
+7. Apply optimized threshold
+8. Return JSON response
+
+---
+
+# Example API Response
+
+```json
+{
+  "default_probability": 0.2107,
+  "prediction": 0,
+  "threshold": 0.6
+}
+```
+
+Meaning:
+
+- Predicted default probability = 21.07%
+- Threshold = 60%
+- Final prediction = Non-default customer
+
+---
+
+# Deployment Goals
+
+The deployment layer demonstrates:
+
+- End-to-end ML workflow
+- Model serving architecture
+- MLflow integration
+- Reusable preprocessing pipeline
+- Production-style inference design
+- Real-time prediction capability
 # Final Outputs
 
 Final outputs of the project:
