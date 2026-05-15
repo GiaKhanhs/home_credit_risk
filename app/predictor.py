@@ -5,7 +5,12 @@ import pandas as pd
 
 
 # MLflow server you used before
-mlflow.set_tracking_uri("http://127.0.0.1:5002")
+MLFLOW_TRACKING_URI = os.getenv(
+    "MLFLOW_TRACKING_URI",
+    "http://host.docker.internal:5002"
+)
+
+mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
 # Replace this with your real XGBoost training run ID
 MODEL_URI = "runs:/66fe6ae51d374587a8d9fd6b90e6580b/model"
