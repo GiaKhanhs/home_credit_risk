@@ -367,6 +367,36 @@ Tracked metrics:
 
 ---
 
+# Data Versioning with DVC
+
+The project uses DVC (Data Version Control) to version processed datasets and ensure reproducibility across experiments.
+
+Current usage:
+
+- Track processed datasets
+- Store dataset versions separately from Git
+- Enable reproducible ML experiments
+- Support future dataset evolution and feature engineering changes
+
+Typical workflow:
+
+```bash
+dvc init
+
+dvc add data/processed/train_v1.parquet
+
+git add .gitignore *.dvc
+git commit -m "Track processed datasets with DVC"
+```
+
+```text
+data/
+├── raw/
+├── processed/
+│   ├── train_v1.parquet
+│   ├── train_v1.parquet.dvc
+```
+---
 # Example ML Workflow
 
 ## Train/Test Split
