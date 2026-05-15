@@ -3,6 +3,15 @@
 raw sources → staging models → intermediate aggregation/features → mart tables
 Bronze/raw → Silver/staging → Silver/intermediate → Gold/mart
 
+## Run model
+```
+dbt run --select model_name
+```
+```
+dbt docs generate
+dbt docs serve
+```
+
 
 ![img](../images/dwh_architecture.png)
 

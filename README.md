@@ -603,6 +603,36 @@ Meaning:
 - Final prediction = Non-default customer
 
 ---
+# Docker Containerization
+
+The inference service was containerized using Docker.
+
+Main deployment steps:
+
+## Build Docker Image
+
+```bash
+docker build -t home_credit_risk:v0 .
+```
+
+## Run Container
+
+```bash
+docker run -p 8000:8000 home_credit_risk:v0
+```
+
+---
+
+# Docker Benefits
+
+Containerization provides:
+
+- Environment consistency
+- Dependency isolation
+- Reproducible deployment
+- Portable inference service
+- Simplified production deployment
+---
 
 # Deployment Goals
 
