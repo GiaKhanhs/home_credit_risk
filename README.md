@@ -397,7 +397,11 @@ data/
 │   ├── train_v1.parquet.dvc
 ```
 ---
-# Example ML Workflow
+# ML Workflow
+
+- Logistic Regression
+- XGBoosts
+- LightGBM
 
 ## Train/Test Split
 
@@ -415,11 +419,8 @@ train_test_split(
 
 ## Hyperparameter Tuning
 
-Examples:
-
 - Grid Search CV
 - Randomized Search CV
-- Bayesian Optimization
 
 ---
 
@@ -430,6 +431,8 @@ Instead of using default threshold `0.5`, the project searches for the best thre
 - F1 Score
 - Recall
 - Precision
+- AUC
+- Accuracy
 
 ---
 # Model Selection Summary
