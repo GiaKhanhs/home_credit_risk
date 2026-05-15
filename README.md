@@ -1,84 +1,242 @@
-# Structure of project
+# Home Credit Risk Prediction Pipeline
 
-# Create Environment
-`python --version` --> 3.8.17
+End-to-end Machine Learning & Data Engineering project for credit default risk prediction using the Home Credit dataset.
 
-`python -m venv .venv`
+This project focuses on building a production-style workflow:
 
-## Activate env
-`source .venv/bin/activate`
+- PostgreSQL Data Warehouse
+- dbt Transformation Pipeline
+- Feature Engineering
+- ML Training Pipeline
+- MLflow Experiment Tracking
+- Model Evaluation & Selection
 
-## Install libraries
-`pip install -r requirements.txt`
+---
 
-# Create raw layer
-- Load all 8 CSV files into PostgreSQL raw tables.
-- Store data exactly as received, even if all columns are initially loaded as `TEXT`.
+# Tech Stack
 
-## Create connection to Postgres
-`python /Users/giakhanh/Desktop/AIDE/Projects/home_credit_risk/create_db/db_connection.py`
-Output:
+| Category | Tools |
+|---|---|
+| Language | Python 3.8.17 |
+| Database | PostgreSQL |
+| Transformation | dbt |
+| ML | Scikit-learn, XGBoost, LightGBM |
+| Experiment Tracking | MLflow |
+| Visualization | Matplotlib, Seaborn |
+| Environment | Virtual Environment (`venv`) |
+
+---
+
+# Project Structure
+
+```bash
+home_credit_risk/
+│
+├── create_db/
+│   ├── create_db.py
+│   ├── create_tables.py
+│   ├── load_data.py
+│   └── db_connection.py
+│
+├── dbt/
+│   ├── models/
+│   │   ├── staging/
+│   │   ├── intermediate/
+│   │   └── marts/
+│   │
+│   ├── macros/
+│   └── schema.yml
+│
+├── notebooks/
+├── src/
+├── artifacts/
+├── images/
+├── requirements.txt
+└── README.md
 ```
-('PostgreSQL 18.3 on x86_64-apple-darwin24.6.0, compiled by Apple clang version 17.0.0 (clang-1700.6.3.2), 64-bit',)
+
+---
+
+# Environment Setup
+
+## Python Version
+
+```bash
+python --version
 ```
-This means connected and show the version
 
-## Create databse
-`python /Users/giakhanh/Desktop/AIDE/Projects/home_credit_risk/create_db/create_db.py`
+Expected:
 
-In Postgres, we have to connect to a databse to create another database. You can see in my code that I connect to postgre database to create home_credit database
-
-### Create tables
-`python /Users/giakhanh/Desktop/AIDE/Projects/home_credit_risk/create_db/create_tables.py`
-
-### Load data
-`python /Users/giakhanh/Desktop/AIDE/Projects/home_credit_risk/create_db/load_data.py`
-
-Now you can check it in database, here I use DBeaver
-
-# Create dbt project
-## Initiation
-`dbt init`
+```bash
+Python 3.8.17
 ```
-(.venv) giakhanh@192 home_credit_risk % dbt init
-08:39:11  Running with dbt=1.6.0
-Enter a name for your project (letters, digits, underscore): home_credit_risk
-08:39:26  
-Your new dbt project "home_credit_risk" was created!
 
-For more information on how to configure the profiles.yml file,
-please consult the dbt documentation here:
+---
 
-  https://docs.getdbt.com/docs/configure-your-profile
+## Create Virtual Environment
 
-One more thing:
-
-Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
-
-  https://community.getdbt.com/
-
-Happy modeling!
-
-08:39:26  Setting up your profile.
-Which database would you like to use?
-[1] postgres
-
-(Don't see the one you want? https://docs.getdbt.com/docs/available-adapters)
-
-Enter a number: 1
+```bash
+python -m venv .venv
 ```
-## Edit profile.yml
-`code /Users/giakhanh/.dbt/profiles.yml`
-This will open profiles.yml on VSCode or any other IDE
 
-This `profile.yml` use to connect to database, here is Postgres.
+---
 
-## Edit dbt_project.yml
-This file is used to design layers in Data Warehouse, here i will desing it in 3 layers:
-```YAML
+## Activate Environment
+
+```bash
+source .venv/bin/activate
+```
+
+---
+
+## Install Libraries
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Dataset
+
+The project uses the Home Credit Default Risk dataset.
+
+Main CSV files:
+
+- `application_train.csv`
+- `application_test.csv`
+- `bureau.csv`
+- `bureau_balance.csv`
+- `previous_application.csv`
+- `POS_CASH_balance.csv`
+- `credit_card_balance.csv`
+- `installments_payments.csv`
+
+---
+
+# Data Warehouse Architecture
+
+Overall pipeline:
+
+```text
+Raw Sources → Staging Models → Intermediate Features → Mart Tables
+Bronze → Silver → Silver (Feature Engineering) → Gold
+```
+
+![DWH Architecture](images/dwh_architecture.png)
+
+---
+
+# Data Warehouse Layers
+
+| Layer | Purpose | Output |
+|---|---|---|
+| Raw | Store original CSV data | Raw tables |
+| Staging | Clean & standardize data | Cleaned tables |
+| Intermediate | Feature engineering & aggregation | Feature tables |
+| Mart | Final dataset for ML training | Customer-level dataset |
+
+---
+
+# Layer Details
+
+| Layer | Input | Models | Key Transformations | Output |
+|---|---|---|---|---|
+| Raw (Bronze) | CSV files | `raw.*` | Load into PostgreSQL | Raw tables |
+| Staging (Silver - Cleaning) | `raw.*` | `stg_*` | Type casting, missing value handling, standardization | Cleaned tables |
+| Intermediate (Silver - Feature Engineering) | `stg_*` | `int_*` | Aggregation, behavior features, delinquency signals | Feature tables |
+| Mart (Gold) | `int_*` | `mart_application_*` | Join all customer-level features | Final ML dataset |
+
+---
+
+# PostgreSQL Setup
+
+## Test PostgreSQL Connection
+
+```bash
+python create_db/db_connection.py
+```
+
+Expected output:
+
+```python
+('PostgreSQL 18.3 on x86_64-apple-darwin24.6.0 ...')
+```
+
+---
+
+## Create Database
+
+```bash
+python create_db/create_db.py
+```
+
+This script:
+
+- Connects to PostgreSQL
+- Creates `home_credit` database
+
+---
+
+## Create Raw Tables
+
+```bash
+python create_db/create_tables.py
+```
+
+---
+
+## Load CSV Data
+
+```bash
+python create_db/load_data.py
+```
+
+All CSV files are loaded into PostgreSQL raw tables.
+
+Important design choice:
+
+- Raw layer stores data exactly as received
+- Most columns are initially loaded as `TEXT`
+
+This preserves source integrity before transformation.
+
+---
+
+# dbt Setup
+
+## Initialize dbt Project
+
+```bash
+dbt init
+```
+
+Select:
+
+```text
+Database: postgres
+```
+
+---
+
+## Configure profiles.yml
+
+Location:
+
+```bash
+~/.dbt/profiles.yml
+```
+
+Used to connect dbt to PostgreSQL.
+
+---
+
+## Configure dbt_project.yml
+
+```yaml
 models:
   home_credit_risk:
-    # Config indicated by + and applies to all files under models/example/
+
     staging:
       +materialized: view
       +schema: staging
@@ -86,23 +244,199 @@ models:
     intermediate:
       +materialized: view
       +schema: int
-    
+
     marts:
-      +materialize: table
+      +materialized: table
       +schema: marts
 ```
 
-- At staging layer, I will 
-    - Cast columns from `TEXT` to appropriate data types:
+---
 
-        - IDs → integer / bigint
+# Staging Layer
 
-        - numeric measures → numeric / double precision
+Main responsibilities:
 
-        - flags → boolean / smallint
+- Cast columns from `TEXT` to correct data types
+- Standardize missing values
+- Rename inconsistent columns
+- Improve readability and consistency
 
-        - categorical columns → text / varchar
+Examples:
 
-        - Standardize missing values such as empty strings, `NULL`, `NaN`, or special placeholders.
-    - Rename columns only if it improves readability and consistency.
-    
+| Original Type | Converted Type |
+|---|---|
+| IDs | integer / bigint |
+| Numeric values | numeric / double precision |
+| Flags | boolean / smallint |
+| Categories | text / varchar |
+
+---
+
+# Intermediate Layer
+
+Feature engineering and aggregation layer.
+
+Main tasks:
+
+- Aggregate historical records
+- Generate customer-level behavioral signals
+- Convert:
+  
+```text
+SK_ID_PREV → SK_ID_CURR
+```
+
+Examples:
+
+- Previous application statistics
+- Delinquency behavior
+- Credit utilization
+- Late payment ratios
+- Installment behavior
+
+---
+
+# Mart Layer
+
+Final analytical layer.
+
+Main outputs:
+
+- `mart_application_train`
+- `mart_application_test`
+
+These datasets are used directly for:
+
+- Machine Learning
+- Model Evaluation
+- Experiment Tracking
+
+---
+
+# dbt Lineage Graph
+
+Generated using:
+
+```bash
+dbt docs generate
+dbt docs serve
+```
+
+Example lineage graph:
+
+![dbt docs](images/dbt_docs_serve.png)
+
+---
+
+# Machine Learning Pipeline
+
+The ML pipeline includes:
+
+- Logistic Regression
+- Random Forest
+- Gradient Boosting Models
+- Hyperparameter Tuning
+- Threshold Optimization
+- Final Model Selection
+
+---
+
+# Experiment Flow
+
+![Experiment Flow](images/experiment_flow.png)
+
+---
+
+# MLflow Tracking
+
+MLflow is used to track:
+
+- Hyperparameters
+- Metrics
+- Threshold tuning
+- Model comparison
+- Final model registration
+
+Tracked metrics:
+
+- AUC ROC
+- F1 Score
+- Precision
+- Recall
+- Accuracy
+
+---
+
+# Example ML Workflow
+
+## Train/Test Split
+
+```python
+train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    stratify=y,
+    random_state=42
+)
+```
+
+---
+
+## Hyperparameter Tuning
+
+Examples:
+
+- Grid Search CV
+- Randomized Search CV
+- Bayesian Optimization
+
+---
+
+## Threshold Optimization
+
+Instead of using default threshold `0.5`, the project searches for the best threshold based on:
+
+- F1 Score
+- Recall
+- Precision
+
+---
+
+# Final Outputs
+
+Final outputs of the project:
+
+- Production-style Data Warehouse
+- Clean customer-level datasets
+- Feature engineering pipeline
+- Experiment tracking workflow
+- Trained ML models
+- Reproducible end-to-end pipeline
+
+---
+
+# Future Improvements
+
+Potential next steps:
+
+- Docker deployment
+- FastAPI inference service
+- CI/CD pipeline
+- Feature Store integration
+- Airflow orchestration
+- Model monitoring
+- Data validation with Great Expectations
+
+---
+
+# Author
+
+Gia Khánh
+
+Focused on:
+
+- Data Engineering
+- Machine Learning Engineering
+- MLOps
+- End-to-End ML Systems
