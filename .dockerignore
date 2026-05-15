@@ -1,0 +1,10 @@
+.venv
+__pycache__
+.ipynb_checkpoints
+.git
+.dvc/cache
+notebooks
+data
+mlruns
+*.pyc
+.DS_Store
